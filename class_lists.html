@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Lists &mdash; Nova Bright Academy</title>
+    <meta name="description" content="Every enrolled student at Nova Bright Academy, sorted by course, year level and section.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/ui.css">
+    <style>
+        .page { max-width: 1180px; }
+        .level-block { margin-top: 8px; }
+        .level-block + .level-block { margin-top: 18px; }
+        .tbl-wrap { margin-top: 10px; }
+        .tbl-wrap table.tbl { min-width: 720px; }
+        @media (max-width: 640px) {
+            .chips { margin-top: 10px; }
+        }
+    </style>
+    <link rel="stylesheet" href="assets/nav.css">
+</head>
+<body>
+<div id="nb-sidebar"></div>
+
+<main class="page">
+    <header class="page-head">
+        <h1>Class Lists</h1>
+        <p class="page-sub">Every enrolled student, sorted by course, year level and section.</p>
+    </header>
+
+    <div data-flash></div>
+
+    <div class="panel">
+        <div class="panel-head">
+            <h2>Filter by term</h2>
+            <div class="chips" id="termChips"></div>
+        </div>
+
+        <form class="filter-bar" id="filterForm" method="get" action="class_lists.html">
+            <div class="field">
+                <label for="f-year">School year &amp; semester</label>
+                <select id="f-year" name="syid"></select>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-filter" aria-hidden="true"></i> Apply</button>
+            <a class="btn btn-ghost" id="resetFilter" href="class_lists.html" hidden><i class="fas fa-rotate-left" aria-hidden="true"></i> Reset</a>
+        </form>
+    </div>
+
+    <div id="listsArea"></div>
+
+    <div class="page-foot">
+        &copy; <span data-year>2026</span> Nova Bright Academy &mdash; Enrollment System
+    </div>
+</main>
+
+<script src="assets/app.js" defer></script>
+<script src="assets/pages/class-lists.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Dashboard &mdash; Nova Bright Academy</title>
+    <meta name="description" content="Live overview of students, courses, schedules and enrollment analytics at Nova Bright Academy.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/ui.css">
+    <style>
+        body { background: var(--bg); }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: var(--nb-nav-h, 64px);
+            left: 0;
+            right: 0;
+            height: 4px;
+            z-index: 9990;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .content { max-width: 1460px; margin: 0 auto; padding: 32px 34px 64px; }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .topbar h1 { margin: 0; font-size: 26px; font-weight: 800; letter-spacing: .2px; color: var(--text); }
+        .topbar p { margin: 4px 0 0; font-size: 13px; color: var(--muted); }
+
+        .term-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 99px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            background: var(--primary-soft);
+            border: 1px solid var(--line);
+            white-space: nowrap;
+        }
+
+        .top-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+        .kpis {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .kpi {
+            background: var(--white);
+            border-top: 5px solid var(--accent);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(35, 51, 61, .07);
+            transition: transform .3s, box-shadow .3s;
+        }
+        .kpi:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(35, 51, 61, .13); }
+
+        .kpi .k-label {
+            font-size: .9rem;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: .05em;
+        }
+        .kpi .k-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.15;
+            margin: 6px 0 4px;
+            color: var(--text);
+            display: block;
+        }
+        .kpi .k-sub { font-size: 12.5px; color: var(--muted); }
+        .kpi .k-bar { height: 6px; border-radius: 99px; background: var(--primary-soft); margin-top: 14px; overflow: hidden; }
+        .kpi .k-bar i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--primary), var(--primary-3)); }
+
+        section { margin-bottom: 40px; scroll-margin-top: calc(var(--nb-nav-h, 64px) + 20px); }
+
+        .sec-head { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+        .sec-head .num {
+            width: 34px; height: 34px;
+            flex: 0 0 34px;
+            display: grid; place-items: center;
+            font-size: 14px; font-weight: 700; color: #f7f9fa;
+            border-radius: 10px;
+            background: var(--primary);
+            box-shadow: 0 6px 14px rgba(147, 162, 163, .32);
+        }
+        .sec-head h2 {
+            color: var(--text);
+            font-weight: 700;
+            font-size: 19px;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+            margin: 0;
+        }
+        .sec-head p { margin: 4px 0 0; font-size: 12.5px; color: var(--muted); }
+
+        .bars { display: grid; gap: 12px; }
+        .bar-row { display: grid; grid-template-columns: 190px 1fr 44px; align-items: center; gap: 12px; font-size: 13px; }
+        .bar-row .b-name { color: var(--text); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .bar-track { height: 14px; border-radius: 99px; background: var(--primary-soft); overflow: hidden; }
+        .bar-track i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--primary), var(--primary-3)); }
+        .bar-row .b-val { text-align: right; font-weight: 700; color: var(--text); }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+
+        .k-label-block {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        .soon {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px dashed var(--line);
+            background: rgba(63, 84, 102, .06);
+        }
+        .soon .soon-ico {
+            width: 40px; height: 40px; flex: 0 0 40px;
+            display: grid; place-items: center;
+            border-radius: 10px;
+            background: var(--primary-soft); color: var(--primary); font-size: 18px;
+        }
+        .soon b { display: block; font-size: 14px; }
+        .soon p { margin: 4px 0 0; font-size: 12.5px; color: var(--muted); line-height: 1.55; }
+        .soon code { background: var(--primary-soft); padding: 1px 6px; border-radius: 5px; color: var(--primary); font-size: 12px; }
+
+        .dash-filter { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
+        .dash-filter label { font-size: 12.5px; font-weight: 600; color: var(--text); }
+        .dash-filter select {
+            padding: 9px 12px; font-family: inherit; font-size: 13px;
+            border: 1.5px solid var(--line); border-radius: 10px; background: #f5f4f1; color: var(--text);
+        }
+
+        .mini-note { font-size: 12px; color: var(--muted); margin-top: 10px; }
+        .panel-tight { padding: 0; overflow: hidden; }
+        .tbl-wrap { margin-top: 14px; }
+        .panel-tight .tbl-wrap { margin-top: 0; }
+        table.tbl td b { font-weight: 700; }
+        .tag.ok { background: rgba(147, 162, 163, .28); color: #eef2f4; }
+        .tag.off { background: rgba(143, 61, 74, .38); color: #f3d7db; }
+        footer.page-foot { margin-top: 10px; font-size: 12px; color: var(--muted); text-align: center; }
+        footer.page-foot a { color: var(--primary); }
+
+        @media (max-width: 1100px) { .kpis { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); } }
+        @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+        @media (max-width: 780px) {
+            .content { padding: 22px 16px 48px; }
+            .bar-row { grid-template-columns: 120px 1fr 36px; }
+            .kpi { padding: 20px 16px; }
+            .kpi .k-value { font-size: 2.1rem; }
+        }
+    </style>
+    <link rel="stylesheet" href="assets/nav.css">
+</head>
+<body>
+<div id="nb-sidebar"></div>
+
+<div class="layout">
+    <main class="content">
+        <div class="topbar">
+            <div>
+                <h1>Registrar Dashboard</h1>
+                <p>Overview of student and academic data &mdash; generated <span id="generatedAt">&mdash;</span></p>
+            </div>
+            <div class="top-actions">
+                <span class="term-badge">&#128197; SY <span id="termBadge">&mdash;</span></span>
+                <a class="btn btn-primary" href="index.html">&#10133; Register Student</a>
+            </div>
+        </div>
+
+        <div class="kpis" id="kpis"></div>
+
+        <!-- ============ 1. STUDENT INFORMATION MANAGEMENT ============ -->
+        <section id="students">
+            <div class="sec-head">
+                <span class="num">1</span>
+                <div>
+                    <h2>Student Information Management</h2>
+                    <p>Student profiles, enrollment status and current admissions</p>
+                </div>
+            </div>
+
+            <div class="grid-2" style="margin-bottom:18px;">
+                <div class="panel">
+                    <div class="k-label-block">Enrollment Status</div>
+                    <div class="bars" id="statusBars"></div>
+                    <p class="mini-note">New-admission and withdrawal trends need an enrollment-date/status column, which the student record does not track yet.</p>
+                </div>
+                <div class="panel">
+                    <div class="k-label-block">Demographics &mdash; Sex</div>
+                    <div class="bars" id="sexBars"></div>
+                </div>
+            </div>
+
+            <div class="panel panel-tight">
+                <div class="tbl-wrap" id="studentsTable"></div>
+            </div>
+        </section>
+
+        <!-- ============ 2. COURSE MANAGEMENT ============ -->
+        <section id="courses">
+            <div class="sec-head">
+                <span class="num">2</span>
+                <div>
+                    <h2>Course Management</h2>
+                    <p>Courses offered and how many students are enrolled in each</p>
+                </div>
+            </div>
+            <div class="panel panel-tight">
+                <div class="tbl-wrap" id="coursesTable"></div>
+            </div>
+        </section>
+
+        <!-- ============ 3. ACADEMIC RECORDS ============ -->
+        <section id="academic">
+            <div class="sec-head">
+                <span class="num">3</span>
+                <div>
+                    <h2>Academic Records</h2>
+                    <p>Transcripts, GPA and degree audits</p>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="soon">
+                    <span class="soon-ico">&#128196;</span>
+                    <div>
+                        <b>Not yet available</b>
+                        <p>Grades, GPA and degree audits require a grades table linking student &rarr; subject &rarr; grade. That table is not part of the demo data, so no transcript data can be shown.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ 4. SCHEDULING TOOLS ============ -->
+        <section id="scheduling">
+            <div class="sec-head">
+                <span class="num">4</span>
+                <div>
+                    <h2>Scheduling Tools</h2>
+                    <p>Class schedules with room and instructor details</p>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="dash-filter">
+                    <label for="schedCourse">Filter by course</label>
+                    <select id="schedCourse"></select>
+                    <span class="mini-note" style="margin:0;" id="schedCount"></span>
+                </div>
+
+                <div class="tbl-wrap" id="scheduleTable"></div>
+
+                <div class="soon" style="margin-top:16px;">
+                    <span class="soon-ico">&#128221;</span>
+                    <div>
+                        <b>Exam schedules &mdash; not yet available</b>
+                        <p>The demo data has no exam table. An exam schedule would list exam dates, locations and times here.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ 5. COMMUNICATION TOOLS ============ -->
+        <section id="communication">
+            <div class="sec-head">
+                <span class="num">5</span>
+                <div>
+                    <h2>Communication Tools</h2>
+                    <p>Notifications and messaging</p>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="soon" style="margin-bottom:14px;">
+                    <span class="soon-ico">&#128276;</span>
+                    <div>
+                        <b>Active term</b>
+                        <p>Current academic term: <b>SY <span id="currentSY">&mdash;</span>, <span id="currentSem">&mdash;</span></b>. Registration deadlines and calendar events would appear here once an announcements table is added.</p>
+                    </div>
+                </div>
+                <div class="soon">
+                    <span class="soon-ico">&#128172;</span>
+                    <div>
+                        <b>Messaging system &mdash; not yet available</b>
+                        <p>Sending messages to students, faculty and staff needs a message table and mailbox accounts, neither of which is part of the demo data.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ 6. REPORTING & ANALYTICS ============ -->
+        <section id="analytics">
+            <div class="sec-head">
+                <span class="num">6</span>
+                <div>
+                    <h2>Reporting &amp; Analytics</h2>
+                    <p>Enrollment metrics computed live from the demo records</p>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="panel">
+                    <div class="k-label-block">Enrollment by Course</div>
+                    <div class="bars" id="courseBars"></div>
+                </div>
+                <div class="panel">
+                    <div class="k-label-block">Enrollment by Year Level</div>
+                    <div class="bars" id="yearBars"></div>
+                </div>
+            </div>
+
+            <div class="panel" style="margin-top:18px;">
+                <div class="k-label-block">Summary</div>
+                <div class="tbl-wrap" id="summaryTable"></div>
+                <p class="mini-note">Custom reports (by date range, program, etc.) would need additional tracking columns such as admission date or status.</p>
+            </div>
+        </section>
+
+        <!-- ============ 7. FINANCIAL INFORMATION ============ -->
+        <section id="financial">
+            <div class="sec-head">
+                <span class="num">7</span>
+                <div><h2>Financial Information</h2><p>Tuition, fees and financial aid</p></div>
+            </div>
+            <div class="panel">
+                <div class="soon">
+                    <span class="soon-ico">&#128176;</span>
+                    <div>
+                        <b>Not yet available</b>
+                        <p>Tuition rates, payment deadlines, outstanding balances and financial-aid status need fees, payment and financial-aid records. None are part of the demo data yet.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ 8. COMPLIANCE & ACCREDITATION ============ -->
+        <section id="compliance">
+            <div class="sec-head">
+                <span class="num">8</span>
+                <div><h2>Compliance &amp; Accreditation</h2><p>Accreditation tracking and policy documents</p></div>
+            </div>
+            <div class="panel">
+                <div class="soon">
+                    <span class="soon-ico">&#9878;</span>
+                    <div>
+                        <b>Not yet available</b>
+                        <p>Accreditation records and policy documents would need accreditation and document tables (with file uploads). These are not part of the demo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ 9. USER ACCESS & SECURITY ============ -->
+        <section id="security">
+            <div class="sec-head">
+                <span class="num">9</span>
+                <div><h2>User Access &amp; Security</h2><p>Role management and audit logs</p></div>
+            </div>
+            <div class="panel">
+                <div class="soon" style="margin-bottom:14px;">
+                    <span class="soon-ico">&#128274;</span>
+                    <div>
+                        <b>Role-based accounts &mdash; active</b>
+                        <p>Staff sign in through <a href="login.html">the login page</a>. Six roles are available: administrator, registrar, registrar staff, instructor, department head and guidance counselor. The role chosen at sign-in decides which pages open.</p>
+                    </div>
+                </div>
+                <div class="soon">
+                    <span class="soon-ico">&#128203;</span>
+                    <div>
+                        <b>Audit logs &mdash; not yet available</b>
+                        <p>Change tracking needs an audit log written to on every insert, update and delete. It is not part of the demo data.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ 10. HELP & SUPPORT ============ -->
+        <section id="help">
+            <div class="sec-head">
+                <span class="num">10</span>
+                <div><h2>Help &amp; Support</h2><p>FAQs and technical support</p></div>
+            </div>
+            <div class="grid-2">
+                <div class="panel">
+                    <div class="k-label-block">Frequently Asked Questions</div>
+                    <p style="font-size:13px;line-height:1.6;margin:0 0 10px;"><b>How do I register a student?</b><br>Use the <a href="index.html">Student Registration</a> form. The record and its enrolment are saved in this browser.</p>
+                    <p style="font-size:13px;line-height:1.6;margin:0 0 10px;"><b>Where do I view all students?</b><br>Open the <a href="students.html">Registered Students</a> list.</p>
+                    <p style="font-size:13px;line-height:1.6;margin:0;"><b>Why are some modules empty?</b><br>Those features need data that is not part of the demo &mdash; they are listed as &ldquo;not yet available&rdquo; above.</p>
+                </div>
+                <div class="panel">
+                    <div class="k-label-block">Technical Support</div>
+                    <p style="font-size:13px;line-height:1.7;margin:0;">
+                        &#128231; registrar-support@novabright.edu<br>
+                        &#9742; (000) 000-0000 local 100<br>
+                        &#128336; Mon&ndash;Fri, 8:00 AM &ndash; 5:00 PM
+                    </p>
+                    <p class="mini-note">Demo contact details &mdash; replace with your real support information.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="page-foot">
+            &copy; <span data-year>2026</span> Nova Bright Academy &mdash; Registrar Dashboard &bull;
+            <a href="index.html">Registration</a> &bull;
+            <a href="students.html">Student List</a>
+        </footer>
+    </main>
+</div>
+
+<script src="assets/app.js" defer></script>
+<script src="assets/pages/registrar-dashboard.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semesters &mdash; Nova Bright Academy</title>
+    <meta name="description" content="Manage the semester definitions used by school years and enrollments.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/ui.css">
+    <style>
+        .tbl-wrap table.tbl { min-width: 780px; }
+        .edit-col { width: 270px; }
+        .remove-col { width: 100px; }
+    </style>
+    <link rel="stylesheet" href="assets/nav.css">
+</head>
+<body>
+<div id="nb-sidebar"></div>
+
+<main class="page">
+    <header class="page-head">
+        <h1>Semesters</h1>
+        <p class="page-sub">The academic calendar starts here: every school year points at one of these semesters.</p>
+    </header>
+
+    <div data-flash></div>
+
+    <div class="panel">
+        <div class="panel-head">
+            <h2>Add a semester</h2>
+        </div>
+        <p class="panel-note">Semesters are referenced by school years, so renaming one updates every year that uses it.</p>
+        <form class="form-row" id="addSemesterForm" novalidate>
+            <div class="field grow">
+                <label for="new-semester">Semester name</label>
+                <input type="text" id="new-semester" maxlength="45" placeholder="e.g. 1st Semester" required>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-plus" aria-hidden="true"></i> Add semester</button>
+        </form>
+    </div>
+
+    <div class="panel">
+        <div class="panel-head">
+            <h2>Existing semesters</h2>
+            <div class="chips" id="semesterChips"></div>
+        </div>
+        <div id="semesterArea"></div>
+    </div>
+
+    <div class="page-foot">
+        &copy; <span data-year>2026</span> Nova Bright Academy &mdash; Enrollment System
+    </div>
+</main>
+
+<script src="assets/app.js" defer></script>
+<script src="assets/pages/manage-semesters.js" defer></script>
+</body>
+</html>

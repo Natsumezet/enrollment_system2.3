@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Staff sign in for the Nova Bright Academy enrollment system. Accounts for administrators, registrars, registrar staff, instructors, department heads and guidance counselors.">
+    <title>Sign in &mdash; Nova Bright Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --green:      #3f5466;
+            --green-deep: #33495a;
+            --green-mid:  #52697c;
+            --gold:       #93a2a3;
+            --gold-ink:   #3f5466;
+            --gold-soft:  #b7c3c3;
+            --ink:        #23333d;
+            --muted:      #46565f;
+            --line:       #b4b5b1;
+            --cream:      #d0cfcc;
+            --danger:     #8f3d4a;
+            --danger-bg:  #f3e2e4;
+            --danger-ln:  #d8b8bc;
+            --radius:     14px;
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body { height: 100%; }
+
+        body {
+            margin: 0;
+            font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+            color: var(--ink);
+            background: var(--cream);
+            font-size: 15px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: var(--green); }
+
+        .auth {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: grid;
+            grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr);
+        }
+
+        /* ---------------- brand side ---------------- */
+        .brand {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 40px;
+            padding: 46px 52px;
+            color: #fff;
+            background: var(--green-deep) url("images/hero.jpg") center / cover no-repeat;
+        }
+
+        .brand::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background:
+                linear-gradient(150deg,
+                    rgba(51, 73, 90, .95) 0%,
+                    rgba(63, 84, 102, .86) 46%,
+                    rgba(51, 73, 90, .74) 100%);
+        }
+
+        .brand-top { display: flex; align-items: center; gap: 16px; }
+
+        .crest {
+            flex: none;
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: #e9efee;
+            border: 3px solid var(--gold);
+            display: grid;
+            place-items: center;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, .28);
+        }
+
+        .crest img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .brand-name {
+            display: block;
+            font-size: 1.02rem;
+            font-weight: 800;
+            letter-spacing: .16em;
+            line-height: 1.25;
+            color: #fff;
+        }
+
+        .brand-sub {
+            display: block;
+            margin-top: 3px;
+            font-size: .72rem;
+            font-weight: 500;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+            color: #c3ced6;
+        }
+
+        .brand-mid h1 {
+            margin: 0 0 14px;
+            font-size: clamp(1.9rem, 3.4vw, 2.7rem);
+            line-height: 1.16;
+            font-weight: 800;
+            letter-spacing: -.01em;
+            max-width: 15ch;
+        }
+
+        .brand-mid h1 em {
+            font-style: normal;
+            color: var(--gold);
+        }
+
+        .brand-mid p {
+            margin: 0;
+            max-width: 40ch;
+            font-size: .95rem;
+            line-height: 1.7;
+            color: #c3cecd;
+        }
+
+        .brand-foot {
+            font-size: .74rem;
+            line-height: 1.7;
+            color: #c3ced6;
+        }
+
+        .brand-foot strong { color: #dfe8e7; font-weight: 600; }
+
+        /* ---------------- form side ---------------- */
+        .panel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 44px 28px;
+            background:
+                radial-gradient(circle at 78% 12%, rgba(147, 162, 163, .12), transparent 46%),
+                var(--cream);
+        }
+
+        .card {
+            width: 100%;
+            max-width: 408px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 12px;
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+            color: var(--gold-ink);
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 26px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        .card h2 {
+            margin: 0 0 8px;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--green);
+            letter-spacing: -.01em;
+        }
+
+        .card-lead {
+            margin: 0 0 26px;
+            font-size: .9rem;
+            color: var(--muted);
+        }
+
+        .alert {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 0 0 20px;
+            padding: 12px 14px;
+            font-size: .84rem;
+            line-height: 1.55;
+            color: var(--danger);
+            background: var(--danger-bg);
+            border: 1px solid var(--danger-ln);
+            border-radius: 11px;
+        }
+
+        .alert-ok {
+            color: var(--green);
+            background: rgba(147, 162, 163, .16);
+            border-color: var(--line);
+        }
+
+        .alert i { margin-top: 3px; }
+
+        .field { margin-bottom: 17px; }
+
+        .field label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            color: var(--green);
+        }
+
+        .control { position: relative; }
+
+        .control input {
+            width: 100%;
+            height: 48px;
+            padding: 0 15px;
+            font-family: inherit;
+            font-size: .95rem;
+            color: var(--ink);
+            background: #f5f4f1;
+            border: 1.5px solid var(--line);
+            border-radius: 11px;
+            transition: border-color .16s, box-shadow .16s;
+        }
+
+        .control input::placeholder { color: #7b858b; }
+
+        .control input:focus {
+            outline: none;
+            border-color: var(--green-mid);
+            box-shadow: 0 0 0 4px rgba(63, 84, 102, .18);
+        }
+
+        .control.has-toggle input { padding-right: 50px; }
+
+        .control select {
+            width: 100%;
+            height: 48px;
+            padding: 0 44px 0 15px;
+            font-family: inherit;
+            font-size: .95rem;
+            color: var(--ink);
+            background: #f5f4f1;
+            border: 1.5px solid var(--line);
+            border-radius: 11px;
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            transition: border-color .16s, box-shadow .16s;
+        }
+
+        .control select:focus {
+            outline: none;
+            border-color: var(--green-mid);
+            box-shadow: 0 0 0 4px rgba(63, 84, 102, .18);
+        }
+
+        .select-control > i {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            font-size: .78rem;
+            color: var(--muted);
+            pointer-events: none;
+        }
+
+        .pw-toggle {
+            position: absolute;
+            top: 50%;
+            right: 6px;
+            transform: translateY(-50%);
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            font-size: .9rem;
+            color: var(--muted);
+            background: transparent;
+            border: 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background .16s, color .16s;
+        }
+
+        .pw-toggle:hover { background: rgba(63, 84, 102, .12); color: var(--green); }
+
+        .submit {
+            width: 100%;
+            height: 50px;
+            margin-top: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            font-family: inherit;
+            font-size: .92rem;
+            font-weight: 700;
+            letter-spacing: .04em;
+            color: #1b2231;
+            background: #f9b17a;
+            border: 1px solid #f9b17a;
+            border-radius: 11px;
+            cursor: pointer;
+            transition: background .18s, transform .12s, box-shadow .18s;
+            box-shadow: 0 10px 22px rgba(249, 177, 122, .28);
+        }
+
+        .submit:hover { background: #ffc496; border-color: #ffc496; }
+        .submit:active { transform: translateY(1px); }
+
+        .hint {
+            margin: 18px 0 0;
+            padding: 12px 14px;
+            font-size: .8rem;
+            line-height: 1.6;
+            color: var(--muted);
+            background: rgba(63, 84, 102, .07);
+            border: 1px solid var(--line);
+            border-radius: 11px;
+        }
+
+        .hint b { color: var(--gold); }
+
+        .card-foot {
+            margin: 24px 0 0;
+            padding-top: 18px;
+            border-top: 1px solid var(--line);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 18px;
+            font-size: .8rem;
+        }
+
+        .card-foot a {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--green);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .card-foot a:hover { text-decoration: underline; }
+
+        .card-foot i { color: var(--gold-ink); font-size: .78rem; }
+
+        .sr-only {
+            position: absolute;
+            width: 1px; height: 1px;
+            padding: 0; margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid rgba(147, 162, 163, .8);
+            outline-offset: 2px;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 880px) {
+            .auth { grid-template-columns: 1fr; }
+            .brand {
+                gap: 22px;
+                padding: 28px 24px 32px;
+            }
+            .brand-mid h1 { font-size: 1.6rem; max-width: none; }
+            .brand-mid p, .brand-foot { display: none; }
+            .panel { padding: 34px 22px 52px; }
+        }
+
+        @media (max-width: 420px) {
+            .crest { width: 60px; height: 60px; }
+            .crest img { width: 40px; height: 40px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { transition: none !important; }
+        }
+    </style>
+</head>
+<body>
+<main class="auth">
+
+    <!-- ============ brand panel ============ -->
+    <section class="brand" aria-label="Nova Bright Academy">
+        <div class="brand-top">
+            <span class="crest">
+                <img src="images/logo.png" alt="">
+            </span>
+            <span>
+                <strong class="brand-name">NOVA BRIGHT<br>ACADEMY</strong>
+                <span class="brand-sub">Enrollment System</span>
+            </span>
+        </div>
+
+        <div class="brand-mid">
+            <h1>Sign in to the <em>registrar's</em> workspace.</h1>
+            <p>Six offices, six views. Pick the role you are signing in as and the workspace is built around what that office needs to see &mdash; no more, no less.</p>
+        </div>
+
+        <p class="brand-foot">
+            <strong>Where Every Dream Finds Its Wings.</strong><br>
+            &copy; <span data-year>2026</span> Nova Bright Academy
+        </p>
+    </section>
+
+    <!-- ============ form panel ============ -->
+    <section class="panel">
+        <div class="card">
+            <p class="eyebrow">Secure access</p>
+            <h2>Welcome back</h2>
+            <p class="card-lead">Pick your role, then sign in. While testing is on, any username and password will get you in.</p>
+
+            <div id="alertArea"></div>
+
+            <form id="loginForm" method="post" action="login.html" novalidate>
+                <input type="hidden" id="nextField" name="next" value="">
+
+                <div class="field">
+                    <label for="role">Your role</label>
+                    <div class="control select-control">
+                        <select id="role" name="role" required></select>
+                        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="login">Username or email</label>
+                    <div class="control">
+                        <input type="text" id="login" name="login" placeholder="e.g. registrar"
+                               autocomplete="username" autocapitalize="none" spellcheck="false" required autofocus>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="password">Password</label>
+                    <div class="control has-toggle">
+                        <input type="password" id="password" name="password" placeholder="Your password"
+                               autocomplete="current-password" required>
+                        <button type="button" class="pw-toggle" id="pwToggle" aria-label="Show password" aria-pressed="false">
+                            <i class="fas fa-eye" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit">
+                    <i class="fas fa-arrow-right-to-bracket" aria-hidden="true"></i>
+                    Sign in
+                </button>
+            </form>
+
+            <p class="hint">
+                <b>No account yet?</b> Accounts are created by the administrator, not by self-registration.
+                Ask the registrar's office to set up your role.<br>
+                <span style="color:var(--muted);">Demo accounts: <b>admin</b>, <b>registrar</b>, <b>staff</b>, <b>instructor</b>, <b>department</b>, <b>guidance</b> &mdash; any password.</span>
+            </p>
+
+            <div class="card-foot">
+                <a href="home.html"><i class="fas fa-arrow-left" aria-hidden="true"></i> Back to the website</a>
+                <a href="index.html"><i class="fas fa-user-plus" aria-hidden="true"></i> Student registration</a>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script src="assets/app.js" defer></script>
+<script src="assets/pages/login.js" defer></script>
+</body>
+</html>

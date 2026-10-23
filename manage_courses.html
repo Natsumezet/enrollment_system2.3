@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Catalog &mdash; Nova Bright Academy</title>
+    <meta name="description" content="Manage the degree programs offered by Nova Bright Academy.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/ui.css">
+    <style>
+        .tbl-wrap table.tbl { min-width: 860px; }
+        .inline-form input { min-width: 140px; }
+        .edit-col { width: 360px; }
+        .remove-col { width: 100px; }
+    </style>
+    <link rel="stylesheet" href="assets/nav.css">
+</head>
+<body>
+<div id="nb-sidebar"></div>
+
+<main class="page">
+    <header class="page-head">
+        <h1>Course Catalog</h1>
+        <p class="page-sub">Every enrolment is filed against one of these courses.</p>
+    </header>
+
+    <div data-flash></div>
+
+    <div class="panel">
+        <div class="panel-head">
+            <h2>Add a course</h2>
+        </div>
+        <p class="panel-note">The name is what the registrar's forms and the registration page show, so keep it recognisable.</p>
+        <form class="form-row" id="addCourseForm" novalidate>
+            <div class="field grow">
+                <label for="new-course">Course name</label>
+                <input type="text" id="new-course" maxlength="100" placeholder="e.g. BS Information Technology" required>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-plus" aria-hidden="true"></i> Add course</button>
+        </form>
+    </div>
+
+    <div class="panel">
+        <div class="panel-head">
+            <h2>Course list</h2>
+            <div class="chips" id="courseChips"></div>
+        </div>
+        <div id="courseArea"></div>
+    </div>
+
+    <div class="page-foot">
+        &copy; <span data-year>2026</span> Nova Bright Academy &mdash; Enrollment System
+    </div>
+</main>
+
+<script src="assets/app.js" defer></script>
+<script src="assets/pages/manage-courses.js" defer></script>
+</body>
+</html>

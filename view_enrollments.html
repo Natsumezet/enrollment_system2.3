@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enrollment Logs &mdash; Nova Bright Academy</title>
+    <meta name="description" content="Every row filed in the enrollment records, with the student, course and term it belongs to.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/ui.css">
+    <style>
+        .page { max-width: 1180px; }
+        .tbl-wrap table.tbl { min-width: 900px; }
+        .chip-row { display: flex; flex-wrap: wrap; gap: 10px; }
+        @media (max-width: 640px) {
+            .filter-bar .field { width: 100%; }
+        }
+    </style>
+    <link rel="stylesheet" href="assets/nav.css">
+</head>
+<body>
+<div id="nb-sidebar"></div>
+
+<main class="page">
+    <header class="page-head">
+        <h1>Enrollment Logs</h1>
+        <p class="page-sub">Every enrollment record, with the student, course and term it belongs to.</p>
+    </header>
+
+    <div data-flash></div>
+
+    <div class="panel">
+        <div class="panel-head">
+            <h2>Filter the log</h2>
+            <div class="chips" id="logChips"></div>
+        </div>
+
+        <form class="filter-bar" id="filterForm" method="get" action="view_enrollments.html">
+            <div class="field">
+                <label for="f-year">School year &amp; semester</label>
+                <select id="f-year" name="syid"></select>
+            </div>
+
+            <div class="field">
+                <label for="f-course">Course</label>
+                <select id="f-course" name="courseid"></select>
+            </div>
+
+            <div class="field grow">
+                <label for="f-q">Search student</label>
+                <input type="text" id="f-q" name="q" maxlength="100" placeholder="Name or student ID">
+            </div>
+
+            <button type="submit" class="btn btn-primary"><i class="fas fa-filter" aria-hidden="true"></i> Apply</button>
+            <a class="btn btn-ghost" id="resetFilter" href="view_enrollments.html" hidden><i class="fas fa-rotate-left" aria-hidden="true"></i> Reset</a>
+        </form>
+    </div>
+
+    <div class="panel">
+        <div class="panel-head">
+            <h2>Enrollment records</h2>
+            <span class="tag tag-gold" id="filteredTag" hidden>Filtered</span>
+        </div>
+        <div id="logArea"></div>
+    </div>
+
+    <div class="page-foot">
+        &copy; <span data-year>2026</span> Nova Bright Academy &mdash; Enrollment System
+    </div>
+</main>
+
+<script src="assets/app.js" defer></script>
+<script src="assets/pages/view-enrollments.js" defer></script>
+</body>
+</html>

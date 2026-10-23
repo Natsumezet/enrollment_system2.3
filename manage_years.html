@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Years &mdash; Nova Bright Academy</title>
+    <meta name="description" content="Manage the school years and the semester each one belongs to.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/ui.css">
+    <style>
+        .tbl-wrap table.tbl { min-width: 880px; }
+        .edit-col { width: 390px; }
+        .remove-col { width: 100px; }
+        .inline-form select { min-width: 140px; }
+    </style>
+    <link rel="stylesheet" href="assets/nav.css">
+</head>
+<body>
+<div id="nb-sidebar"></div>
+
+<main class="page">
+    <header class="page-head">
+        <h1>School Years</h1>
+        <p class="page-sub">Each school year pairs an academic label with the semester it runs in.</p>
+    </header>
+
+    <div data-flash></div>
+
+    <div class="panel">
+        <div class="panel-head">
+            <h2>Add a school year</h2>
+        </div>
+        <p class="panel-note">A school year always belongs to exactly one semester. Enrolments are filed against the school year.</p>
+        <div id="addYearArea"></div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-head">
+            <h2>Existing school years</h2>
+            <div class="chips" id="yearChips"></div>
+        </div>
+        <div id="yearArea"></div>
+    </div>
+
+    <div class="page-foot">
+        &copy; <span data-year>2026</span> Nova Bright Academy &mdash; Enrollment System
+    </div>
+</main>
+
+<script src="assets/app.js" defer></script>
+<script src="assets/pages/manage-years.js" defer></script>
+</body>
+</html>

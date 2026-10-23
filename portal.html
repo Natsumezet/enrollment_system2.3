@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portal &mdash; Nova Bright Academy</title>
+    <meta name="description" content="Your Nova Bright Academy staff portal: profile, photo and the modules your role can open.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/ui.css">
+    <style>
+        .portal-hero {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 24px 26px;
+            margin-bottom: 22px;
+            color: #fff;
+            background: linear-gradient(135deg, #33495a 0%, #3f5466 100%);
+            border: 1px solid #33495a;
+            border-radius: 16px;
+            box-shadow: 0 12px 28px rgba(35, 51, 61, .18);
+        }
+
+        .portal-avatar {
+            flex: none;
+            width: 64px;
+            height: 64px;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: .04em;
+            color: #1c3334;
+            background: #93a2a3;
+            border: 3px solid rgba(255, 255, 255, .38);
+            border-radius: 50%;
+        }
+        .portal-avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+        .portal-id { min-width: 0; }
+        .portal-id h2 {
+            margin: 0 0 3px;
+            padding: 0;
+            font-size: 1.22rem;
+            font-weight: 700;
+            color: #fff;
+            border: 0;
+        }
+        .portal-id p { margin: 0; font-size: .82rem; color: #c3ced6; overflow-wrap: anywhere; }
+
+        .portal-role {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-top: 9px;
+            padding: 4px 11px;
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: #dfe8e7;
+            background: rgba(147, 162, 163, .18);
+            border: 1px solid rgba(147, 162, 163, .5);
+            border-radius: 999px;
+        }
+
+        .portal-test {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 9px;
+            margin-left: 6px;
+            padding: 4px 10px;
+            font-size: .66rem;
+            font-weight: 700;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            color: #c3cecd;
+            border: 1px dashed rgba(147, 162, 163, .6);
+            border-radius: 999px;
+        }
+
+        .portal-actions { margin-left: auto; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+        .portal-actions form { margin: 0; }
+
+        .portal-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 16px;
+            font-family: inherit;
+            font-size: .8rem;
+            font-weight: 700;
+            line-height: 1;
+            white-space: nowrap;
+            text-decoration: none;
+            border: 1px solid transparent;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: background .17s, color .17s, transform .12s;
+        }
+        .portal-btn:active { transform: translateY(1px); }
+        .portal-btn-gold { color: #1b2231; background: #f9b17a; border-color: #f9b17a; }
+        .portal-btn-gold:hover { background: #ffc496; border-color: #ffc496; color: #1b2231; }
+        .portal-btn-outline { color: #fff; background: rgba(255, 255, 255, .06); border-color: rgba(255, 255, 255, .38); }
+        .portal-btn-outline:hover { background: rgba(255, 255, 255, .16); color: #fff; }
+
+        .portal-stats { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 24px; }
+        .portal-stat {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 8px;
+            padding: 8px 14px;
+            font-size: .78rem;
+            color: var(--text);
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+        }
+        .portal-stat b { font-size: .98rem; }
+        .portal-stat span { color: var(--muted); }
+
+        .portal-photo-panel {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+        .portal-photo-copy { min-width: 220px; }
+        .portal-photo-copy h2 { margin-bottom: 4px; }
+        .portal-photo-copy p { margin: 0; max-width: 540px; font-size: .79rem; line-height: 1.6; color: var(--muted); }
+        .portal-photo-form { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .portal-photo-form input[type="file"] {
+            max-width: 250px;
+            padding: 8px 10px;
+            font-family: inherit;
+            font-size: .76rem;
+            color: var(--muted);
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-radius: 9px;
+        }
+        .portal-photo-form .btn { padding: 10px 15px; font-size: .78rem; }
+
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(248px, 1fr));
+            gap: 14px;
+            margin-top: 16px;
+        }
+
+        .portal-tile {
+            display: flex;
+            gap: 14px;
+            padding: 18px;
+            text-decoration: none;
+            color: inherit;
+            background: var(--white);
+            border: 1px solid var(--line);
+            border-left: 4px solid #3f5466;
+            border-radius: 12px;
+            transition: transform .16s, box-shadow .16s, border-color .16s;
+        }
+        .portal-tile:hover {
+            transform: translateY(-2px);
+            border-left-color: var(--accent);
+            box-shadow: 0 10px 24px rgba(35, 51, 61, .12);
+            color: inherit;
+        }
+
+        .portal-tile i {
+            flex: none;
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            font-size: .95rem;
+            color: var(--primary);
+            background: rgba(63, 84, 102, .10);
+            border-radius: 10px;
+        }
+
+        .portal-tile b { display: block; font-size: .88rem; color: var(--text); }
+        .portal-tile small { display: block; margin-top: 2px; font-size: .76rem; line-height: 1.5; color: var(--muted); }
+
+        .portal-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            margin-top: 24px;
+            padding: 14px 16px;
+            font-size: .8rem;
+            line-height: 1.6;
+            color: var(--muted);
+            background: rgba(63, 84, 102, .06);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+        }
+        .portal-note i { margin-top: 3px; color: var(--primary); }
+
+        @media (max-width: 640px) {
+            .portal-hero { padding: 20px; }
+            .portal-actions { margin-left: 0; width: 100%; }
+            .portal-actions .portal-btn { flex: 1 1 auto; }
+            .portal-photo-panel { align-items: flex-start; }
+            .portal-photo-form { width: 100%; }
+            .portal-photo-form input[type="file"] { flex: 1 1 100%; max-width: none; }
+        }
+    </style>
+    <link rel="stylesheet" href="assets/nav.css">
+</head>
+<body>
+<div id="nb-sidebar"></div>
+<main class="page">
+    <div id="flashHost" data-flash></div>
+
+    <div class="portal-hero" id="portalHero"></div>
+    <div class="portal-stats" id="portalStats" aria-label="Live totals"></div>
+
+    <div class="panel portal-photo-panel" id="photoPanel" hidden>
+        <div class="portal-photo-copy">
+            <h2>Profile photo</h2>
+            <p>Upload a square JPG, PNG or WebP image up to 2 MB. It replaces your initials in the portal avatar. The demo resizes the image in your browser before saving it.</p>
+        </div>
+        <div class="portal-photo-form">
+            <input type="file" id="profilePhoto" accept="image/jpeg,image/png,image/webp" aria-label="Choose a profile photo">
+            <button type="button" class="btn btn-primary" id="savePhoto">
+                <i class="fas fa-upload" aria-hidden="true"></i> Save photo
+            </button>
+            <button type="button" class="btn btn-ghost" id="removePhoto" hidden>
+                <i class="fas fa-trash-can" aria-hidden="true"></i> Remove
+            </button>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2>Your modules</h2>
+        <p class="panel-note" id="moduleNote"></p>
+        <div class="portal-grid" id="portalGrid"></div>
+    </div>
+
+    <div class="portal-note">
+        <i class="fas fa-shield-halved" aria-hidden="true"></i>
+        <span>The role you pick at sign-in decides which areas you see. If that is not the role your account should have, ask the administrator to update it.</span>
+    </div>
+
+    <div class="page-foot">&copy; <span data-year>2026</span> Nova Bright Academy &mdash; Enrollment System</div>
+</main>
+
+<script src="assets/app.js" defer></script>
+<script src="assets/pages/portal.js" defer></script>
+</body>
+</html>

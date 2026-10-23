@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Bright Academy | Creative Thinking &amp; Innovation</title>
+    <meta name="description" content="Nova Bright Academy — Creative Thinking &amp; Innovation. An academy where curiosity is treated as a discipline.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-gold: #93a2a3;
+            --gold-ink: #3f5466;
+            --dark-grey: #23333d;
+            --light-grey: #c2c3c0;
+            --white: #eef3f2;
+
+            /* Shared with the top navigation bar. */
+            --primary: #3f5466;
+            --accent: #93a2a3;
+            --surface: #e4e3df;
+            --muted: #46565f;
+            --line: #b4b5b1;
+            --bg: #d0cfcc;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        [id] { scroll-margin-top: 24px; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--dark-grey);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .logo {
+            width: 80px;
+            margin-bottom: 20px;
+            filter: brightness(0) invert(1);
+        }
+
+        .btn:focus-visible,
+        .view-all:focus-visible,
+        .plus-icon:focus-visible,
+        .footer-links a:focus-visible {
+            outline: 2px solid var(--primary-gold);
+            outline-offset: 3px;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            position: relative;
+            height: 90vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url('images/hero.jpg') center/cover no-repeat;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            max-width: 800px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-bottom: 40px;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .hero-btns { display: flex; gap: 20px; }
+
+        .btn {
+            padding: 12px 30px;
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 1px;
+            font-weight: 600;
+            transition: 0.3s;
+            border: 2px solid var(--primary-gold);
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #f9b17a;
+            border-color: #f9b17a;
+            color: #1b2231;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+        }
+
+        .btn:hover {
+            background-color: #e9efee;
+            color: #1c3334;
+            border-color: #e9efee;
+        }
+
+        .btn-primary:hover {
+            background-color: #ffc496;
+            border-color: #ffc496;
+            color: #1b2231;
+        }
+
+        /* --- Welcome Section --- */
+        .welcome {
+            padding: 100px 20px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .welcome h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .welcome p {
+            color: var(--muted);
+            font-size: 1rem;
+            margin-bottom: 40px;
+        }
+
+        .signature { width: 150px; opacity: 0.7; }
+
+        .sign-off {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .sign-off b {
+            display: block;
+            font-size: 1rem;
+            color: var(--dark-grey);
+        }
+
+        /* --- Courses Section --- */
+        .courses-section {
+            background-color: var(--light-grey);
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .courses-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+        }
+
+        .courses-lead {
+            max-width: 1200px;
+            margin: 0 auto 50px;
+            text-align: left;
+            color: var(--dark-grey);
+            font-size: 0.95rem;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .course-card {
+            background: var(--surface);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(35, 51, 61, .10);
+            text-align: left;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 18px 40px rgba(35, 51, 61, .18);
+        }
+
+        .course-media {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .course-img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .course-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .course-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark-grey);
+        }
+
+        .course-meta {
+            font-size: 0.78rem;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            color: var(--gold-ink);
+            margin-bottom: 12px;
+        }
+
+        .course-content p {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .course-more {
+            margin-top: auto;
+            padding-top: 18px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .course-more:hover { color: var(--gold-ink); }
+
+        .plus-icon {
+            position: absolute;
+            bottom: 14px;
+            right: 14px;
+            width: 30px;
+            height: 30px;
+            background: var(--accent);
+            color: #1c3334;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 1;
+            text-decoration: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .plus-icon:hover {
+            transform: rotate(90deg);
+            background: #e9efee;
+            color: #1c3334;
+        }
+
+        .view-all {
+            margin-top: 60px;
+            display: inline-block;
+            padding: 12px 40px;
+            border: 1px solid var(--line);
+            text-decoration: none;
+            color: var(--dark-grey);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .view-all:hover {
+            background: var(--surface);
+            border-color: var(--accent);
+        }
+
+        .empty-state {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            color: var(--muted);
+            border: 1px dashed var(--line);
+            border-radius: 4px;
+        }
+
+        /* --- Footer --- */
+        .site-footer {
+            background: #3f5466;
+            color: #c3ced6;
+            padding: 60px 20px 0;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 40px;
+        }
+
+        .site-footer h3 {
+            color: var(--white);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .site-footer h4 {
+            color: #c3cecd;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .site-footer p { font-size: 0.9rem; line-height: 1.8; }
+
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 8px; }
+
+        .footer-links a {
+            color: #c3ced6;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover { color: #ffffff; }
+
+        .footer-base {
+            max-width: 1200px;
+            margin: 50px auto 0;
+            padding: 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.78rem;
+            color: #c3ced6;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: space-between;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .hero { height: 80vh; }
+            .hero-btns { flex-direction: column; }
+            .btn { text-align: center; }
+            .welcome, .courses-section { padding: 70px 20px; }
+            .welcome h2, .courses-section h2 { font-size: 2rem; }
+        }
+    </style>
+    <link rel="stylesheet" href="assets/nav.css">
+</head>
+<body>
+<div id="nb-sidebar"></div>
+
+    <header>
+        <img src="images/logo.png" alt="Nova Bright Academy crest" class="logo">
+    </header>
+
+    <main>
+    <section class="hero">
+        <h1>Creative Thinking &amp; Innovation</h1>
+        <p>An academy where curiosity is treated as a discipline — where students are pushed past the syllabus to design, test and refine ideas of their own.</p>
+        <div class="hero-btns">
+            <a href="login.html?next=index.html" class="btn btn-primary" id="registerLink">REGISTER NOW</a>
+            <a href="#courses" class="btn btn-secondary">SEE PROGRAMS</a>
+        </div>
+    </section>
+
+    <section class="welcome" id="welcome">
+        <h2>Welcome</h2>
+        <p>Nova Bright Academy grew out of a simple belief: the best learning happens when students are trusted to ask better questions than the textbook answers. Our programmes pair rigorous foundations with the freedom to experiment, and every classroom is built around the idea that you learn a subject properly by trying to use it.</p>
+        <img src="images/signature.png" alt="Signature of Dr. Maria Villanueva" class="signature">
+        <div class="sign-off">
+            <b>Dr. Maria Villanueva</b>
+            Director of Academic Affairs
+        </div>
+    </section>
+
+    <section class="courses-section" id="courses">
+        <h2>Our Courses</h2>
+        <p class="courses-lead">Every programme below is taught from our live curriculum — the subject list and the enrolment figures come straight from the registrar’s records.</p>
+
+        <div class="course-grid" id="courseGrid"></div>
+        <a href="manage_courses.html" class="view-all">View All Course</a>
+    </section>
+    </main>
+
+    <footer class="site-footer" id="contact">
+        <div class="footer-inner">
+            <div>
+                <h3>Nova Bright Academy</h3>
+                <p>Where Every Dream Finds Its Wings</p>
+            </div>
+            <div>
+                <h4>Explore</h4>
+                <ul class="footer-links">
+                    <li><a href="#welcome">About the Academy</a></li>
+                    <li><a href="#courses">Our Courses</a></li>
+                    <li><a href="manage_courses.html">Course Catalog</a></li>
+                    <li><a href="registrar_dashboard.html">Registrar Dashboard</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Visit</h4>
+                <p>
+                    Academic Affairs Office<br>
+                    Registrar Building, Main Campus<br>
+                    Monday to Friday, 8:00 &ndash; 17:00
+                </p>
+            </div>
+        </div>
+        <div class="footer-base">
+            <span>&copy; <span data-year>2026</span> Nova Bright Academy</span>
+            <span>Enrollment System</span>
+        </div>
+    </footer>
+
+    <script src="assets/app.js" defer></script>
+    <script src="assets/pages/home.js" defer></script>
+</body>
+</html>

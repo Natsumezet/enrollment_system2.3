@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registered Students &mdash; Nova Bright Academy</title>
+    <meta name="description" content="Search, filter and manage every registered student at Nova Bright Academy.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/ui.css">
+    <style>
+        :root {
+            --primary:     #3f5466;
+            --primary-2:   #33495a;
+            --primary-3:   #52697c;
+            --primary-soft:rgba(63, 84, 102, .10);
+            --accent:      #93a2a3;
+            --accent-2:    #3f5466;
+            --accent-soft: rgba(63, 84, 102, .10);
+            --text:        #23333d;
+            --muted:       #46565f;
+            --line:        #b4b5b1;
+            --bg:          #d0cfcc;
+            --white:       #e4e3df;
+            --danger:      #8f3d4a;
+            --danger-soft: #f3e2e4;
+            --danger-line: #d8b8bc;
+
+            --table:       #3f5466;
+            --table-head:  #354a5c;
+            --table-row:   #465c6f;
+            --table-hover: #50687d;
+            --table-line:  #5b7185;
+            --table-text:  #eef2f4;
+            --table-muted: #d0d9df;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 32px 16px 56px;
+            font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+            font-size: 14px;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        .wrap { max-width: 1100px; margin: 0 auto; }
+
+        /* ---------- HEADER ---------- */
+        .hero {
+            padding: 26px 28px;
+            border-radius: 26px 26px 8px 8px;
+            color: #fff;
+            background: linear-gradient(135deg, #33495a, #3f5466);
+            border: 1px solid #33495a;
+            border-bottom: none;
+            box-shadow: 0 18px 40px rgba(35, 51, 61, .18);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: .4px;
+            text-shadow: 0 3px 14px rgba(0, 0, 0, .3);
+        }
+
+        .hero p { margin: 6px 0 0; font-size: 13px; color: rgba(255, 255, 255, .9); }
+
+        .count-pill {
+            font-size: 13px;
+            font-weight: 700;
+            padding: 9px 16px;
+            border-radius: 99px;
+            white-space: nowrap;
+            color: #fff;
+            background: rgba(255, 255, 255, .18);
+            border: 1px solid rgba(255, 255, 255, .4);
+        }
+
+        /* ---------- CARD ---------- */
+        .card {
+            background: var(--white);
+            border-radius: 8px 8px 26px 26px;
+            padding: 26px 24px 30px;
+            box-shadow: 0 26px 60px rgba(35, 51, 61, .14);
+        }
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .toolbar h2 { margin: 0; font-size: 20px; font-weight: 700; }
+
+        .btn {
+            display: inline-block;
+            padding: 11px 20px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: .3px;
+            text-decoration: none;
+            color: #1b2231;
+            border-radius: 12px;
+            background: #f9b17a;
+            box-shadow: 0 12px 24px rgba(249, 177, 122, .30);
+            transition: transform .15s, box-shadow .15s, background .15s;
+        }
+
+        .btn:hover { transform: translateY(-2px); background: #ffc496; box-shadow: 0 16px 30px rgba(249, 177, 122, .38); }
+
+        /* ---------- TABLE ---------- */
+        .table-scroll {
+            overflow-x: auto;
+            border-radius: 14px;
+            border: 1px solid var(--table-line);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            min-width: 1000px;
+            color: var(--table-text);
+            background: var(--table);
+        }
+
+        thead th {
+            text-align: left;
+            padding: 14px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--table-text);
+            background: var(--table-head);
+            border-bottom: 1px solid var(--table-line);
+            white-space: nowrap;
+        }
+
+        tbody td { padding: 13px 16px; border-bottom: 1px solid var(--table-line); vertical-align: top; }
+        tbody tr { background: var(--table); }
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:nth-child(even) { background: var(--table-row); }
+        tbody tr:hover { background: var(--table-hover); }
+
+        .id-cell { font-weight: 700; color: var(--table-text); }
+
+        .sex-pill {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 11px;
+            border-radius: 99px;
+            background: rgba(255, 255, 255, .14);
+            color: #ffffff;
+        }
+
+        .empty, .error {
+            margin: 0;
+            padding: 34px 22px;
+            text-align: center;
+            border-radius: 14px;
+            font-size: 15px;
+        }
+
+        .empty {
+            color: var(--muted);
+            background: rgba(63, 84, 102, .06);
+            border: 1px dashed #a9aaa6;
+        }
+
+        .error {
+            color: var(--danger);
+            background: var(--danger-soft);
+            border: 1px solid var(--danger-line);
+        }
+
+        footer { margin-top: 18px; text-align: center; font-size: 12px; color: var(--muted); }
+
+        /* ---------- Delete controls ---------- */
+        .check-col { width: 44px; text-align: center; }
+        .check-col input[type="checkbox"] {
+            width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer; vertical-align: middle;
+        }
+        .bulk-bar {
+            display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+            margin-bottom: 14px; padding: 12px 14px;
+            background: rgba(63, 84, 102, .06); border: 1px solid var(--line); border-radius: 12px;
+        }
+        .bulk-bar .hint { font-size: 12px; color: var(--muted); }
+        .btn-danger, .btn-danger-ghost, .btn-del-row {
+            font-family: inherit; font-weight: 700; cursor: pointer; border-radius: 10px;
+            transition: background .15s, transform .15s, box-shadow .15s;
+        }
+        .btn-danger {
+            padding: 10px 16px; font-size: 13px; color: #fff; border: none;
+            background: linear-gradient(120deg, #8f3d4a, #a35661);
+            box-shadow: 0 10px 20px rgba(143,61,74,.28);
+        }
+        .btn-danger:hover { transform: translateY(-1px); box-shadow: 0 14px 24px rgba(143,61,74,.34); }
+        .btn-danger-ghost {
+            padding: 10px 16px; font-size: 13px; color: var(--danger);
+            background: var(--danger-soft); border: 1px solid var(--danger-line);
+        }
+        .btn-danger-ghost:hover { background: var(--danger-line); }
+        .btn-del-row {
+            padding: 6px 12px; font-size: 12px; color: var(--danger);
+            background: var(--danger-soft); border: 1px solid var(--danger-line);
+        }
+        .btn-del-row:hover { background: var(--danger-line); }
+
+        /* ---------- Locate students: course filter + search ---------- */
+        .filter-bar {
+            display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap;
+            margin-bottom: 14px; padding: 14px 16px;
+            background: rgba(63, 84, 102, .06); border: 1px solid var(--line); border-radius: 14px;
+        }
+        .filter-field { display: flex; flex-direction: column; gap: 6px; }
+        .filter-field.grow { flex: 1 1 240px; }
+        .filter-field label {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: .06em; color: var(--text);
+        }
+        .filter-field select, .filter-field input {
+            font-family: inherit; font-size: 14px; padding: 10px 12px;
+            color: var(--text); background: #f5f4f1;
+            border: 1px solid var(--line); border-radius: 10px;
+            min-width: 240px; max-width: 100%;
+        }
+        .filter-field select:focus, .filter-field input:focus {
+            outline: 2px solid var(--primary); outline-offset: 1px;
+        }
+        .filter-summary { margin: 0 0 16px; font-size: 13px; color: var(--muted); }
+        .filter-summary b { color: var(--text); }
+        .btn-sm { padding: 10px 18px; font-size: 13px; }
+        .btn-ghost {
+            display: inline-block; padding: 10px 16px; font-size: 13px; font-weight: 700;
+            text-decoration: none; color: var(--primary);
+            background: var(--primary-soft); border: 1px solid #a9aaa6; border-radius: 10px;
+        }
+        .btn-ghost:hover { background: rgba(63, 84, 102, .16); }
+
+        /* flash from the shared runtime */
+        .flash { margin: 0 0 14px; }
+
+        @media (max-width: 700px) {
+            .hero h1 { font-size: 21px; }
+            .table-scroll { border: none; overflow-x: visible; }
+            table { min-width: 0; }
+            thead { display: none; }
+            tbody tr {
+                display: block;
+                margin-bottom: 14px;
+                border: 1px solid var(--table-line);
+                border-radius: 14px;
+                background: var(--table);
+                box-shadow: 0 6px 16px rgba(35, 51, 61, .12);
+                overflow: hidden;
+            }
+            tbody tr:nth-child(even) { background: var(--table-row); }
+            tbody td {
+                display: flex;
+                justify-content: space-between;
+                gap: 14px;
+                padding: 10px 14px;
+                border-bottom: 1px solid var(--table-line);
+            }
+            tbody td:last-child { border-bottom: none; }
+            tbody td::before {
+                content: attr(data-label);
+                font-size: 12px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: .05em;
+                color: var(--table-muted);
+                flex: 0 0 42%;
+            }
+            .check-col, td[data-label="Action"] { justify-content: flex-start; }
+            .check-col::before, td[data-label="Action"]::before { flex: 0 0 auto; margin-right: 14px; }
+            .filter-field, .filter-field.grow { flex: 1 1 100%; }
+            .filter-field select, .filter-field input { min-width: 0; width: 100%; }
+        }
+    </style>
+    <link rel="stylesheet" href="assets/nav.css">
+</head>
+<body>
+<div id="nb-sidebar"></div>
+
+<div class="wrap">
+    <header class="hero">
+        <div>
+            <h1>&#127891; Registered Students</h1>
+            <p>Nova Bright Academy &mdash; Student Enrollment System</p>
+        </div>
+        <span class="count-pill" id="countPill">&mdash;</span>
+    </header>
+
+    <main class="card">
+        <div class="toolbar">
+            <h2>Student List</h2>
+            <a class="btn" href="index.html">&#43; Register New Student</a>
+        </div>
+
+        <div id="flashHost" data-flash></div>
+
+        <form id="filterForm" method="get" action="students.html" class="filter-bar">
+            <div class="filter-field">
+                <label for="courseFilter">Course</label>
+                <select name="course" id="courseFilter"></select>
+            </div>
+            <div class="filter-field grow">
+                <label for="searchBox">Search</label>
+                <input type="search" id="searchBox" name="q" placeholder="Last name, first name or email">
+            </div>
+            <button type="submit" class="btn btn-sm">Apply</button>
+            <a class="btn-ghost" id="clearFilter" href="students.html" hidden>Clear filter</a>
+        </form>
+
+        <p class="filter-summary" id="filterSummary" hidden></p>
+
+        <div id="listArea"></div>
+    </main>
+
+    <footer>&copy; <span data-year>2026</span> Nova Bright Academy &mdash; Student Enrollment System</footer>
+</div>
+
+<script src="assets/app.js" defer></script>
+<script src="assets/pages/students.js" defer></script>
+</body>
+</html>
